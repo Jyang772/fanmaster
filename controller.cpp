@@ -1,4 +1,12 @@
 #include "controller.h"
+#include <signal.h>
+
+
+volatile sig_atomic_t stop;
+
+void inthand(int signum){
+    stop = 1;
+}
 
 Controller::Controller(QObject *parent) :
     QObject(parent)
@@ -121,9 +129,9 @@ void Controller::change_speed(int speed){
     char speedString[15];
 
     switch(speed){
-        case 0: strcpy(speedString,"auto"); break;
-        case 8: strcpy(speedString,"full-speed"); break;
-        default: sprintf(speedString,"%d",speed);
+    case 0: strcpy(speedString,"auto"); break;
+    case 8: strcpy(speedString,"full-speed"); break;
+    default: sprintf(speedString,"%d",speed);
     }
     sprintf(tmpString,"echo level %s > /proc/acpi/ibm/fan",speedString);
     system(tmpString);
@@ -137,4 +145,96 @@ void Controller::change_speed(int speed){
 
     printf("** Speed level changed to %s **\n",speedString);
 }
+
+void Controller::consoleMode(){
+    int choice;
+    int level;
+    int AUTO = 7;
+    int FULL = 8;
+    int fansLevel = AUTO;
+    int temp, safeTemp=57, criticalTemp=60,sleepTime=120;
+    FILE* tempInput;
+
+    while(1){
+        printf("\n[1] Monitor Mode\n");
+        printf("[2] Manual Mode\n");
+        printf("[3] Exit\n");
+        scanf("%d",&choice);
+
+        switch(choice){
+        case 1:
+
+            printf("Enter sleep time: ");
+            scanf("%d",&sleepTime);
+
+            printf("Enter safe temperature: ");
+            scanf("%d",&safeTemp);
+
+            printf("Enter critical temperature: ");
+            scanf("%d",&criticalTemp);
+
+            printf("----------------------------------------\n");
+            printf("   Safe: %d, Critical: %d, Sleep: %d\n",safeTemp, criticalTemp,sleepTime);
+            printf("----------------------------------------\n");
+
+
+            while(1){
+                signal(SIGINT,inthand);
+                if(stop){
+                    stop = 0;
+                    break;
+                }
+                tempInput = fopen("/sys/class/thermal/thermal_zone1/temp","r");
+                fscanf(tempInput,"%d",&temp);
+                temp /= 1000;
+                fclose(tempInput);
+                printf("Temperature: %d Fan: %d\n",temp,getRPM());
+                if(temp>=criticalTemp && fansLevel==AUTO){
+                    system("date '+.:: %H:%M:%S ::.'");
+                    printf("Temperature is %d, critical is %d\n",temp,criticalTemp);
+                    printf("Turning fans to full-speed!\n");
+                    printf("----------------------------------------\n");
+                    system("echo level full-speed > /proc/acpi/ibm/fan");
+                    fansLevel = FULL;
+                }
+                else if(temp<=safeTemp && fansLevel==FULL){
+                    system("date '+.:: %H:%M:%S ::.'");
+                    printf("Temperature is %d, safe is %d\n",temp,safeTemp);
+                    printf("Turning fans to auto!\n");
+                    printf("----------------------------------------\n");
+                    system("echo level auto > /proc/acpi/ibm/fan");
+                    fansLevel = AUTO;
+                }
+                sleep(sleepTime);
+            }
+
+            break;
+        case 2:
+            printf("MANUAL MODE!\n");
+            printf("Set Level <0-8> (0=auto,8=full): ");
+            scanf("%d",&level);
+            change_speed(level);
+            while(1){
+                signal(SIGINT,inthand);
+                if(stop){
+                    printf("Resetting to auto!\n");
+                    change_speed(0);
+                    stop = 0;
+                    break;
+                }
+                printf("Temperature: %d Fan: %d\n",temp,getRPM());
+                sleep(1);
+            }
+            break;
+        case 3:
+            exit(1);
+            break;
+        default:
+            break;
+        }
+
+    }
+
+}
+
 

@@ -22,6 +22,8 @@ public:
     int getTemperature();
     int getRPM();
 
+    void consoleMode();
+
 signals:
     void setText(std::string);
 
