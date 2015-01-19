@@ -9,4 +9,5 @@ EXECUTABLE=window
 all: 
 	$(CC) -o $(EXECUTABLE) $(SOURCES) $(CFLAGS)
 
-
+clean:
+	-rm -f *.o *~
