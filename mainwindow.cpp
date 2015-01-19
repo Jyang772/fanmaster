@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     timer = new QTimer(this);
+    status = new QTimer(this);
     fanMaster = new Controller();
     fanManual = new Controller();
 
@@ -21,10 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     pThread->start();
 
     connect(timer,SIGNAL(timeout()),this,SLOT(checkTemp()));
+    connect(status,SIGNAL(timeout()),this,SLOT(updateStatus()));
     timer->start(sleepTime*1000);
+    status->start(1000);
 
     connect(fanMaster,SIGNAL(setText(std::string)),this,SLOT(set_Label(std::string)));
-
 
     //Initial
     fanMaster->criticalTemp = critTemp;
@@ -34,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->sleepBox->setValue(sleepTime);
 
     checkTemp();
+
+    log = fopen("log","a");
 
 }
 
@@ -73,11 +77,21 @@ void MainWindow::updateLCD(){
 void MainWindow::checkTemp(){
 
     fanMaster->fans();
-    //ui->statusBar->showMessage(fanMaster-);
+}
+
+void MainWindow::updateStatus(){
+
+    char time[20];
+    fanMaster->getTime(time);
+    ui->statusBar->showMessage("Temperature: " + QString::number(fanMaster->getTemperature()/1000) + "C " + QString::number(fanMaster->getRPM()) + "RPM Checked at " + time);
+
 }
 
 void MainWindow::set_Label(std::string string){
+
     ui->infoBox->append(QString::fromStdString(string));
+    ui->message->setText(QString::fromStdString(string));
+
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -86,13 +100,18 @@ void MainWindow::on_pushButton_clicked()
 
     fanMaster->criticalTemp = critTemp;
     fanMaster->safeTemp = safeTemp;
-    fanMaster->fans();
+    fanMaster->autoSpeedValue = ui->autoSpeed->currentIndex();
     timer->setInterval(sleepTime*1000);
     //fanMaster->getTime(time);
     //printf("TIME: %s",time);
+
+    qDebug() << fanMaster->manual;
+    if(fanMaster->manual){
+        ui->pushButton->setText("Apply Current Options");
+    }
     ui->infoBox->append("Settings Applied!\n");
-
-
+    fprintf(log,"Settings Applied!\n");
+    fanMaster->fans();
 }
 
 
@@ -108,18 +127,28 @@ void MainWindow::on_Auto_tabBarClicked(int index)
 void MainWindow::on_pushButton_2_clicked()
 {
     qDebug() << "currentindex: " + QString::number(ui->comboBox->currentIndex());
+    timer->stop();
+
     if(ui->comboBox->currentIndex() == 0)
     {
-        timer->start();
-        fanMaster->manual = 0;
         ui->infoBox->append("Manual Control Level: auto");
+        fprintf(log,"Manual Control Level: auto\n");
+
     }
-    else{
-        timer->stop();
+    else{      
         ui->infoBox->append("Manual Control Level: " + ui->comboBox->currentIndex());
+        fprintf(log,"Manual Control Level: %d\n",ui->comboBox->currentIndex());
+
     }
 
+    ui->pushButton->setText("Run Auto Control");
+    fanMaster->manual = 1;
     fanMaster->change_speed(ui->comboBox->currentIndex());
 
 
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    close();
 }

@@ -38,7 +38,11 @@ private slots:
 
     void updateLCD();
 
+    void updateStatus();
+
     void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -51,11 +55,13 @@ private:
     int sleepTime;
 
     QTimer *timer;
+    QTimer *status;
 
     Controller *fanMaster;
     Controller *fanManual;
 
     QThread *pThread = new QThread();
+    FILE *log;
 
 };
 

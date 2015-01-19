@@ -20,6 +20,7 @@ public:
 
     void getTime(char*);
     int getTemperature();
+    int getRPM();
 
 signals:
     void setText(std::string);
@@ -35,7 +36,7 @@ public:
     int autoSpeedValue = 7;
 
 private:
-
+    FILE *log;
 
 };
 

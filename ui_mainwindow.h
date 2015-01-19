@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
-#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
@@ -34,16 +33,14 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QGridLayout *gridLayout;
     QTabWidget *Auto;
     QWidget *tab;
     QSpinBox *sleepBox;
     QSpinBox *critBox;
     QSpinBox *safeBox;
     QPushButton *pushButton;
-    QTextBrowser *infoBox;
-    QWidget *widget;
-    QGridLayout *gridLayout_2;
+    QLabel *label_7;
+    QComboBox *autoSpeed;
     QLabel *label;
     QLabel *currentOptions;
     QLabel *label_2;
@@ -55,6 +52,10 @@ public:
     QLabel *label_6;
     QPushButton *pushButton_2;
     QComboBox *comboBox;
+    QWidget *tab_3;
+    QTextBrowser *infoBox;
+    QLabel *message;
+    QPushButton *pushButton_3;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -63,15 +64,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(549, 456);
+        MainWindow->resize(477, 449);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        gridLayout = new QGridLayout(centralWidget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         Auto = new QTabWidget(centralWidget);
         Auto->setObjectName(QStringLiteral("Auto"));
+        Auto->setGeometry(QRect(9, 9, 441, 271));
         Auto->setFocusPolicy(Qt::TabFocus);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
@@ -100,43 +98,28 @@ public:
         safeBox->setSizePolicy(sizePolicy);
         pushButton = new QPushButton(tab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(150, 180, 171, 27));
-        infoBox = new QTextBrowser(tab);
-        infoBox->setObjectName(QStringLiteral("infoBox"));
-        infoBox->setGeometry(QRect(40, 210, 401, 91));
-        widget = new QWidget(tab);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(50, 30, 261, 131));
-        gridLayout_2 = new QGridLayout(widget);
-        gridLayout_2->setSpacing(6);
-        gridLayout_2->setContentsMargins(11, 11, 11, 11);
-        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget);
+        pushButton->setGeometry(QRect(150, 200, 171, 27));
+        label_7 = new QLabel(tab);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(0, 160, 311, 21));
+        autoSpeed = new QComboBox(tab);
+        autoSpeed->setObjectName(QStringLiteral("autoSpeed"));
+        autoSpeed->setGeometry(QRect(320, 160, 101, 27));
+        label = new QLabel(tab);
         label->setObjectName(QStringLiteral("label"));
-
-        gridLayout_2->addWidget(label, 0, 0, 1, 1);
-
-        currentOptions = new QLabel(widget);
+        label->setGeometry(QRect(51, 31, 115, 17));
+        currentOptions = new QLabel(tab);
         currentOptions->setObjectName(QStringLiteral("currentOptions"));
-
-        gridLayout_2->addWidget(currentOptions, 0, 1, 1, 1);
-
-        label_2 = new QLabel(widget);
+        currentOptions->setGeometry(QRect(184, 31, 67, 17));
+        label_2 = new QLabel(tab);
         label_2->setObjectName(QStringLiteral("label_2"));
-
-        gridLayout_2->addWidget(label_2, 1, 0, 1, 1);
-
-        label_3 = new QLabel(widget);
+        label_2->setGeometry(QRect(51, 65, 82, 17));
+        label_3 = new QLabel(tab);
         label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout_2->addWidget(label_3, 2, 0, 1, 2);
-
-        label_4 = new QLabel(widget);
+        label_3->setGeometry(QRect(51, 99, 144, 17));
+        label_4 = new QLabel(tab);
         label_4->setObjectName(QStringLiteral("label_4"));
-
-        gridLayout_2->addWidget(label_4, 3, 0, 1, 2);
-
+        label_4->setGeometry(QRect(51, 132, 130, 17));
         Auto->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -151,18 +134,28 @@ public:
         label_6->setGeometry(QRect(60, 100, 181, 20));
         pushButton_2 = new QPushButton(tab_2);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(310, 100, 191, 27));
+        pushButton_2->setGeometry(QRect(310, 100, 121, 27));
         comboBox = new QComboBox(tab_2);
         comboBox->setObjectName(QStringLiteral("comboBox"));
         comboBox->setGeometry(QRect(210, 100, 85, 27));
         Auto->addTab(tab_2, QString());
-
-        gridLayout->addWidget(Auto, 0, 0, 1, 1);
-
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QStringLiteral("tab_3"));
+        infoBox = new QTextBrowser(tab_3);
+        infoBox->setObjectName(QStringLiteral("infoBox"));
+        infoBox->setGeometry(QRect(10, 10, 501, 211));
+        Auto->addTab(tab_3, QString());
+        message = new QLabel(centralWidget);
+        message->setObjectName(QStringLiteral("message"));
+        message->setGeometry(QRect(110, 280, 241, 81));
+        message->setAlignment(Qt::AlignHCenter|Qt::AlignTop);
+        pushButton_3 = new QPushButton(centralWidget);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        pushButton_3->setGeometry(QRect(190, 360, 99, 27));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 549, 25));
+        menuBar->setGeometry(QRect(0, 0, 477, 25));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -183,6 +176,19 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
         pushButton->setText(QApplication::translate("MainWindow", "Apply Current Options", 0));
+        label_7->setText(QApplication::translate("MainWindow", "Use this speed when temperature is critical:", 0));
+        autoSpeed->clear();
+        autoSpeed->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "auto", 0)
+         << QApplication::translate("MainWindow", "1", 0)
+         << QApplication::translate("MainWindow", "2", 0)
+         << QApplication::translate("MainWindow", "3", 0)
+         << QApplication::translate("MainWindow", "4", 0)
+         << QApplication::translate("MainWindow", "5", 0)
+         << QApplication::translate("MainWindow", "6", 0)
+         << QApplication::translate("MainWindow", "7", 0)
+         << QApplication::translate("MainWindow", "full speed", 0)
+        );
         label->setText(QApplication::translate("MainWindow", "Current options: ", 0));
         currentOptions->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         label_2->setText(QApplication::translate("MainWindow", "Sleep Time: ", 0));
@@ -205,6 +211,9 @@ public:
          << QApplication::translate("MainWindow", "full speed", 0)
         );
         Auto->setTabText(Auto->indexOf(tab_2), QApplication::translate("MainWindow", "Manual Control", 0));
+        Auto->setTabText(Auto->indexOf(tab_3), QApplication::translate("MainWindow", "Log", 0));
+        message->setText(QApplication::translate("MainWindow", "Time", 0));
+        pushButton_3->setText(QApplication::translate("MainWindow", "Exit", 0));
     } // retranslateUi
 
 };

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[13];
-    char stringdata[211];
+    QByteArrayData data[15];
+    char stringdata[248];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,14 +41,17 @@ QT_MOC_LITERAL(8, 138, 9),
 QT_MOC_LITERAL(9, 148, 21),
 QT_MOC_LITERAL(10, 170, 5),
 QT_MOC_LITERAL(11, 176, 9),
-QT_MOC_LITERAL(12, 186, 23)
+QT_MOC_LITERAL(12, 186, 12),
+QT_MOC_LITERAL(13, 199, 23),
+QT_MOC_LITERAL(14, 223, 23)
     },
     "MainWindow\0on_critBox_editingFinished\0"
     "\0on_safeBox_editingFinished\0"
     "on_sleepBox_editingFinished\0"
     "on_pushButton_clicked\0set_Label\0"
     "std::string\0checkTemp\0on_Auto_tabBarClicked\0"
-    "index\0updateLCD\0on_pushButton_2_clicked\0"
+    "index\0updateLCD\0updateStatus\0"
+    "on_pushButton_2_clicked\0on_pushButton_3_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +61,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,15 +69,17 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x08,
-       3,    0,   60,    2, 0x08,
-       4,    0,   61,    2, 0x08,
-       5,    0,   62,    2, 0x08,
-       6,    1,   63,    2, 0x08,
-       8,    0,   66,    2, 0x08,
-       9,    1,   67,    2, 0x08,
-      11,    0,   70,    2, 0x08,
-      12,    0,   71,    2, 0x08,
+       1,    0,   69,    2, 0x08,
+       3,    0,   70,    2, 0x08,
+       4,    0,   71,    2, 0x08,
+       5,    0,   72,    2, 0x08,
+       6,    1,   73,    2, 0x08,
+       8,    0,   76,    2, 0x08,
+       9,    1,   77,    2, 0x08,
+      11,    0,   80,    2, 0x08,
+      12,    0,   81,    2, 0x08,
+      13,    0,   82,    2, 0x08,
+      14,    0,   83,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void,
@@ -84,6 +89,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, 0x80000000 | 7,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -103,7 +110,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->checkTemp(); break;
         case 6: _t->on_Auto_tabBarClicked((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 7: _t->updateLCD(); break;
-        case 8: _t->on_pushButton_2_clicked(); break;
+        case 8: _t->updateStatus(); break;
+        case 9: _t->on_pushButton_2_clicked(); break;
+        case 10: _t->on_pushButton_3_clicked(); break;
         default: ;
         }
     }
@@ -134,13 +143,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 11;
     }
     return _id;
 }

@@ -4,6 +4,8 @@ Controller::Controller(QObject *parent) :
     QObject(parent)
 {
 
+    log = fopen("log","a+");
+
 }
 
 
@@ -51,8 +53,9 @@ void Controller::fans(){
     pclose(sysIn);
 
     sprintf(message,"Temperature: %dC, Checked at %s",cpu_temp,tmpString);
+    fprintf(log,"%s\n",message);
     printf("%s\n",message);
-    emit setText(message);
+    //emit setText(message);
 
 
     if(cpu_temp >= criticalTemp && fansLevel == AUTO){
@@ -64,6 +67,7 @@ void Controller::fans(){
         change_speed(autoSpeedValue);
         fansLevel = FORCED;
         sprintf(tempMessage,"\n%s\nTemperature is %d, critical is %d\nTurning fans to %s!",tmpString,cpu_temp,criticalTemp,speedString);
+        fprintf(log,"%s",tempMessage);
         emit setText(tempMessage);
 
     }
@@ -74,6 +78,7 @@ void Controller::fans(){
         fansLevel = AUTO;
         // putting log message
         sprintf(tempMessage,"\n%s\nTemperature is %d, safe is %d\nTurning fans to auto!",tmpString,cpu_temp,safeTemp);
+        fprintf(log,"%s",tempMessage);
         emit setText(tempMessage);
     }
     else if(errorTemp){
@@ -82,7 +87,7 @@ void Controller::fans(){
 
 }
 
-void getTime(char* time){
+void Controller::getTime(char* time){
 
     FILE *sysIn;
     sysIn = popen("date '+%H:%M:%S'","r");
@@ -100,6 +105,16 @@ int Controller::getTemperature()
     return cpu_temp;
 }
 
+int Controller::getRPM()
+{
+    FILE *fp;
+    char RPM[20];
+    fp = popen("sensors | grep 'RPM' | awk '{print $2}'","r");
+
+    fgets(RPM,sizeof(RPM),fp);
+    return atoi(RPM);
+}
+
 
 void Controller::change_speed(int speed){
     char tmpString[60];
@@ -113,9 +128,11 @@ void Controller::change_speed(int speed){
     sprintf(tmpString,"echo level %s > /proc/acpi/ibm/fan",speedString);
     system(tmpString);
     sprintf(tmpString,"Fans level - %s",speedString);
+    fprintf(log,"%s\n",tmpString);
     emit setText(tmpString);
 
     sprintf(tmpString,"ThinkPad Fan Control .:: level - %s ::.",speedString);
+    fprintf(log,"%s\n",tmpString);
     emit setText(tmpString);
 
     printf("** Speed level changed to %s **\n",speedString);
