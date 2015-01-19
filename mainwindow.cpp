@@ -34,6 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->critBox->setValue(critTemp);
     ui->safeBox->setValue(safeTemp);
     ui->sleepBox->setValue(sleepTime);
+    char current[40];
+    sprintf(current,"%d,%d,%d,%d",sleepTime,safeTemp,critTemp,ui->autoSpeed->currentIndex());
+    ui->currentOptions->setText(QString::fromStdString(current));
 
     checkTemp();
 
@@ -111,6 +114,11 @@ void MainWindow::on_pushButton_clicked()
     }
     ui->infoBox->append("Settings Applied!\n");
     fprintf(log,"Settings Applied!\n");
+
+    char current[40];
+    sprintf(current,"%d,%d,%d,%d",sleepTime,safeTemp,critTemp,ui->autoSpeed->currentIndex());
+    ui->currentOptions->setText(QString::fromStdString(current));
+
     fanMaster->fans();
 }
 

@@ -110,7 +110,7 @@ public:
         label->setGeometry(QRect(51, 31, 115, 17));
         currentOptions = new QLabel(tab);
         currentOptions->setObjectName(QStringLiteral("currentOptions"));
-        currentOptions->setGeometry(QRect(184, 31, 67, 17));
+        currentOptions->setGeometry(QRect(184, 31, 141, 17));
         label_2 = new QLabel(tab);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(51, 65, 82, 17));
