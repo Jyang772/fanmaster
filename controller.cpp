@@ -254,8 +254,9 @@ void Controller::consoleMode(){
             while(1){
                 signal(SIGINT,inthand);
                 if(stop){
+                    if(level == 9){ //Dangerous to leave fan OFF, set back to auto
                     printf("Resetting to auto!\n");
-                    change_speed(0);
+                    change_speed(0);}
                     stop = 0;
                     break;
                 }
