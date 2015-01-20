@@ -56,6 +56,7 @@ private:
 
     QTimer *timer;
     QTimer *status;
+    QTimer *lcd;
 
     Controller *fanMaster;
     Controller *fanManual;

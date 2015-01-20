@@ -1,5 +1,6 @@
 #include "controller.h"
 #include <signal.h>
+#include <errno.h>
 
 
 volatile sig_atomic_t stop;
@@ -12,7 +13,6 @@ Controller::Controller(QObject *parent) :
     QObject(parent)
 {
 
-    log = fopen("log","a+");
 
 }
 
@@ -21,6 +21,9 @@ void Controller::fans(){
 
     int cpu_temp;
     FILE *tempInput, *sysIn;
+    FILE *log;
+    log = fopen("log","a+");
+
 
     char message[80];
     char tempMessage[120];
@@ -57,13 +60,18 @@ void Controller::fans(){
     fclose(tempInput);
 
     sysIn = popen("date '+%H:%M:%S'","r");
-    fgets(tmpString,9,sysIn);
-    pclose(sysIn);
+    if(sysIn != NULL){
+        fgets(tmpString,9,sysIn);
+        pclose(sysIn);
+    }
+    else{
+        //Print Error Code
+        qDebug() << "Error: " + errno;
+    }
 
     sprintf(message,"Temperature: %dC, Checked at %s",cpu_temp,tmpString);
     fprintf(log,"%s\n",message);
     printf("%s\n",message);
-    //emit setText(message);
 
 
     if(cpu_temp >= criticalTemp /*&& fansLevel == AUTO*/){
@@ -80,7 +88,7 @@ void Controller::fans(){
 
     }
 
-    else if(cpu_temp<=safeTemp){
+    else if(cpu_temp<=safeTemp || cpu_temp <= criticalTemp){
         // changing fans level to auto
         change_speed(0);
         fansLevel = AUTO;
@@ -93,14 +101,23 @@ void Controller::fans(){
         errorTemp=0;
     }
 
+
+    fclose(log);
+
 }
 
 void Controller::getTime(char* time){
 
     FILE *sysIn;
     sysIn = popen("date '+%H:%M:%S'","r");
-    fgets(time,9,sysIn);
-    pclose(sysIn);
+    if(sysIn != NULL)
+    {fgets(time,20,sysIn);
+        pclose(sysIn);
+    }
+    else{
+        //Print Error Code
+        qDebug() << "Error: " + errno;
+    }
 
 }
 
@@ -109,8 +126,16 @@ int Controller::getTemperature()
     FILE *tempInput;
     int cpu_temp;
     tempInput = fopen("/sys/class/thermal/thermal_zone1/temp","r");
-    fscanf(tempInput,"%d",&cpu_temp);
-    return cpu_temp;
+    if(tempInput != NULL){
+        fscanf(tempInput,"%d",&cpu_temp);
+        fclose(tempInput);
+        return cpu_temp;
+    }
+    else{
+        //Print Error Code
+        qDebug() << "Error: " + errno;
+        return 1;
+    }
 }
 
 int Controller::getRPM()
@@ -127,6 +152,9 @@ int Controller::getRPM()
 void Controller::change_speed(int speed){
     char tmpString[60];
     char speedString[15];
+    FILE *log;
+    log = fopen("log","a+");
+
 
     switch(speed){
     case 0: strcpy(speedString,"auto"); break;
@@ -145,6 +173,7 @@ void Controller::change_speed(int speed){
     emit setText(tmpString);
 
     printf("** Speed level changed to %s **\n",speedString);
+    fclose(log);
 }
 
 void Controller::consoleMode(){

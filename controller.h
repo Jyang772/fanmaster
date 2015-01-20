@@ -38,7 +38,6 @@ public:
     int autoSpeedValue = 7;
 
 private:
-    FILE *log;
 
 };
 

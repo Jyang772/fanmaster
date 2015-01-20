@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
     timer = new QTimer(this);
+    lcd = new QTimer(this);
+
     status = new QTimer(this);
     fanMaster = new Controller();
     fanManual = new Controller();
@@ -21,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     fanManual->moveToThread(pThread);
     pThread->start();
 
+    connect(lcd,SIGNAL(timeout()),this,SLOT(updateLCD()));
     connect(timer,SIGNAL(timeout()),this,SLOT(checkTemp()));
     connect(status,SIGNAL(timeout()),this,SLOT(updateStatus()));
     timer->start(sleepTime*1000);
@@ -71,12 +74,14 @@ void MainWindow::on_sleepBox_editingFinished()
 
 void MainWindow::updateLCD(){
 
-    int temp = fanManual->getTemperature()/1000;
+    //int temp = fanManual->getTemperature()/1000;
+    int temp = fanMaster->getTemperature()/1000;
     if(temp < critTemp)
-    ui->lcdNumber->setPalette(Qt::green);
+        ui->lcdNumber->setPalette(Qt::green);
     else
         ui->lcdNumber->setPalette(Qt::red);
-    ui->lcdNumber->display(fanManual->getTemperature()/1000);
+    //ui->lcdNumber->display(fanManual->getTemperature()/1000);
+    ui->lcdNumber->display(temp);
 }
 
 void MainWindow::checkTemp(){
@@ -129,17 +134,14 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_Auto_tabBarClicked(int index)
 {
-    QTimer *timer = new QTimer();
-    timer->start(1000);
-    connect(timer,SIGNAL(timeout()),this,SLOT(updateLCD()));
-
-
+    lcd->start(1000);
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    qDebug() << "currentindex: " + QString::number(ui->comboBox->currentIndex());
-    timer->stop();
+    //Bug here that cashes application to crash
+    //qDebug() << "currentindex: " + QString::number(ui->comboBox->currentIndex());
+    timer->stop(); //Stop timer for infoBox
 
     if(ui->comboBox->currentIndex() == 0)
     {
