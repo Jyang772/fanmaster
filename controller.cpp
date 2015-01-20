@@ -51,6 +51,8 @@ void Controller::fans(){
     tempInput = fopen("/sys/class/thermal/thermal_zone1/temp","r");
     if(tempInput == NULL){
         printf("ERROR! Could not retreive temperature information.\n");
+        perror("Error_sys: ");
+        return;
 
     }
 
@@ -65,6 +67,7 @@ void Controller::fans(){
         pclose(sysIn);
     }
     else{
+        perror("Error_date: ");
         //Print Error Code
         qDebug() << "Error: " + errno;
     }
@@ -111,11 +114,13 @@ void Controller::getTime(char* time){
     FILE *sysIn;
     sysIn = popen("date '+%H:%M:%S'","r");
     if(sysIn != NULL)
-    {fgets(time,20,sysIn);
+    {
+        fgets(time,20,sysIn);
         pclose(sysIn);
     }
     else{
         //Print Error Code
+        perror("Error_getTime: ");
         qDebug() << "Error: " + errno;
     }
 
@@ -143,8 +148,10 @@ int Controller::getRPM()
     FILE *fp;
     char RPM[20];
     fp = popen("sensors | grep 'RPM' | awk '{print $2}'","r");
-    if(fp != NULL)
-    fgets(RPM,sizeof(RPM),fp);
+    if(fp != NULL){
+        fgets(RPM,sizeof(RPM),fp);
+        fclose(fp);
+    }
     return atoi(RPM);
 }
 

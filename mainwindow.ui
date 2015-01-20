@@ -48,6 +48,9 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
      </widget>
      <widget class="QSpinBox" name="critBox">
       <property name="geometry">

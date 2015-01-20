@@ -81,6 +81,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(sleepBox->sizePolicy().hasHeightForWidth());
         sleepBox->setSizePolicy(sizePolicy);
+        sleepBox->setMaximum(1000);
         critBox = new QSpinBox(tab);
         critBox->setObjectName(QStringLiteral("critBox"));
         critBox->setGeometry(QRect(320, 100, 91, 27));

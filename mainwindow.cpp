@@ -45,8 +45,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     checkTemp();
 
-    log = fopen("log","a");
-
 }
 
 MainWindow::~MainWindow()
@@ -107,6 +105,8 @@ void MainWindow::set_Label(std::string string){
 void MainWindow::on_pushButton_clicked()
 {
     //char time[20];
+    FILE *log;
+    log = fopen("log","a+");
 
     fanMaster->criticalTemp = critTemp;
     fanMaster->safeTemp = safeTemp;
@@ -120,7 +120,10 @@ void MainWindow::on_pushButton_clicked()
         ui->pushButton->setText("Apply Current Options");
     }
     ui->infoBox->append("Settings Applied!\n");
-    fprintf(log,"Settings Applied!\n");
+    if(log != NULL){
+        fprintf(log,"Settings Applied!\n");
+        fclose(log);
+    }
 
     char current[40];
     sprintf(current,"%d,%d,%d,%d",sleepTime,safeTemp,critTemp,ui->autoSpeed->currentIndex());
@@ -139,6 +142,9 @@ void MainWindow::on_Auto_tabBarClicked(int index)
 
 void MainWindow::on_pushButton_2_clicked()
 {
+    FILE *log;
+    log = fopen("log","a+");
+
     //Bug here that cashes application to crash
     //qDebug() << "currentindex: " + QString::number(ui->comboBox->currentIndex());
     timer->stop(); //Stop timer for infoBox
@@ -146,16 +152,23 @@ void MainWindow::on_pushButton_2_clicked()
     if(ui->comboBox->currentIndex() == 0)
     {
         ui->infoBox->append("Manual Control Level: auto");
-        fprintf(log,"Manual Control Level: auto\n");
+        if(log != NULL){
+            fprintf(log,"Manual Control Level: auto\n");
+            fclose(log);
+        }
 
     }
     else{
         int index;
+
         if(ui->comboBox->currentIndex() == 9)
             index = 0;
         ui->infoBox->append("Manual Control Level: " + index);
-        fprintf(log,"Manual Control Level: %d\n",index);
 
+        if(log != NULL){
+            fprintf(log,"Manual Control Level: %d\n",index);
+            fclose(log);
+        }
     }
 
     ui->pushButton->setText("Run Auto Control");

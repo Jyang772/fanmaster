@@ -62,7 +62,6 @@ private:
     Controller *fanManual;
 
     QThread *pThread = new QThread();
-    FILE *log;
 
 };
 
