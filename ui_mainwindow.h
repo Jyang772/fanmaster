@@ -188,6 +188,7 @@ public:
          << QApplication::translate("MainWindow", "6", 0)
          << QApplication::translate("MainWindow", "7", 0)
          << QApplication::translate("MainWindow", "full speed", 0)
+         << QApplication::translate("MainWindow", "OFF", 0)
         );
         label->setText(QApplication::translate("MainWindow", "Current options: ", 0));
         currentOptions->setText(QApplication::translate("MainWindow", "TextLabel", 0));
@@ -209,6 +210,7 @@ public:
          << QApplication::translate("MainWindow", "6", 0)
          << QApplication::translate("MainWindow", "7", 0)
          << QApplication::translate("MainWindow", "full speed", 0)
+         << QApplication::translate("MainWindow", "OFF", 0)
         );
         Auto->setTabText(Auto->indexOf(tab_2), QApplication::translate("MainWindow", "Manual Control", 0));
         Auto->setTabText(Auto->indexOf(tab_3), QApplication::translate("MainWindow", "Log", 0));

@@ -66,7 +66,7 @@ void Controller::fans(){
     //emit setText(message);
 
 
-    if(cpu_temp >= criticalTemp && fansLevel == AUTO){
+    if(cpu_temp >= criticalTemp /*&& fansLevel == AUTO*/){
         switch(autoSpeedValue){
         case 0: strcpy(speedString, "auto"); break;
         case 8: strcpy(speedString, "full-speed"); break;
@@ -131,6 +131,7 @@ void Controller::change_speed(int speed){
     switch(speed){
     case 0: strcpy(speedString,"auto"); break;
     case 8: strcpy(speedString,"full-speed"); break;
+    case 9: speed = 0;
     default: sprintf(speedString,"%d",speed);
     }
     sprintf(tmpString,"echo level %s > /proc/acpi/ibm/fan",speedString);
@@ -211,7 +212,7 @@ void Controller::consoleMode(){
             break;
         case 2:
             printf("MANUAL MODE!\n");
-            printf("Set Level <0-8> (0=auto,8=full): ");
+            printf("Set Level <0-8> (z=auto,8=full): ");
             scanf("%d",&level);
             change_speed(level);
             while(1){

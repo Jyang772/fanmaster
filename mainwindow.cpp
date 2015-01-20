@@ -34,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->critBox->setValue(critTemp);
     ui->safeBox->setValue(safeTemp);
     ui->sleepBox->setValue(sleepTime);
+    ui->autoSpeed->setCurrentIndex(8);
+
     char current[40];
     sprintf(current,"%d,%d,%d,%d",sleepTime,safeTemp,critTemp,ui->autoSpeed->currentIndex());
     ui->currentOptions->setText(QString::fromStdString(current));
@@ -120,6 +122,8 @@ void MainWindow::on_pushButton_clicked()
     ui->currentOptions->setText(QString::fromStdString(current));
 
     fanMaster->fans();
+    timer->start();
+
 }
 
 
@@ -143,9 +147,12 @@ void MainWindow::on_pushButton_2_clicked()
         fprintf(log,"Manual Control Level: auto\n");
 
     }
-    else{      
-        ui->infoBox->append("Manual Control Level: " + ui->comboBox->currentIndex());
-        fprintf(log,"Manual Control Level: %d\n",ui->comboBox->currentIndex());
+    else{
+        int index;
+        if(ui->comboBox->currentIndex() == 9)
+            index = 0;
+        ui->infoBox->append("Manual Control Level: " + index);
+        fprintf(log,"Manual Control Level: %d\n",index);
 
     }
 
