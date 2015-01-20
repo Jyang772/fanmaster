@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Da Fan Mastah</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="Auto">
@@ -405,7 +405,7 @@
      <x>0</x>
      <y>0</y>
      <width>477</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

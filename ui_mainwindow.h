@@ -155,7 +155,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 477, 25));
+        menuBar->setGeometry(QRect(0, 0, 477, 20));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -174,7 +174,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Da Fan Mastah", 0));
         pushButton->setText(QApplication::translate("MainWindow", "Apply Current Options", 0));
         label_7->setText(QApplication::translate("MainWindow", "Use this speed when temperature is critical:", 0));
         autoSpeed->clear();

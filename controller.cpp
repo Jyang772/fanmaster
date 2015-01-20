@@ -143,7 +143,7 @@ int Controller::getRPM()
     FILE *fp;
     char RPM[20];
     fp = popen("sensors | grep 'RPM' | awk '{print $2}'","r");
-
+    if(fp != NULL)
     fgets(RPM,sizeof(RPM),fp);
     return atoi(RPM);
 }
