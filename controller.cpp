@@ -5,6 +5,13 @@
 
 volatile sig_atomic_t stop;
 
+struct logger{
+    int temp;
+    int rpm;
+    int level;
+};
+
+
 void inthand(int signum){
     stop = 1;
 }
@@ -23,7 +30,6 @@ void Controller::fans(){
     FILE *tempInput, *sysIn;
     FILE *log;
     log = fopen("log","a+");
-
 
     char message[80];
     char tempMessage[120];
@@ -104,6 +110,36 @@ void Controller::fans(){
         errorTemp=0;
     }
 
+
+    //Logging purposes [Differential Equations]
+    FILE *diff;
+    logger test;
+    diff = fopen("diff","a+");
+
+    test.rpm = getRPM();
+    test.temp = getTemperature();
+    test.level = 1;
+
+    //fwrite(&test,sizeof(logger),1,diff);
+    if(test.rpm == 0)
+        test.level = 0;
+    else if(test.rpm > 0 && test.rpm < 1990)
+        test.level = 1;
+    else if(test.rpm > 1990 && test.rpm < 2730)
+        test.level = 2;
+    else if(test.rpm > 2730 && test.rpm < 3040)
+        test.level = 3;
+    else if(test.rpm > 3040 && test.rpm < 3300)
+        test.level = 4;
+    else if(test.rpm > 3300 && test.rpm < 3444)
+        test.level = 5;
+    else if(test.rpm > 3444 && test.rpm < 3990)
+        test.level = 6;
+    else
+        test.level = 7;
+
+    fprintf(diff,"%d,%d,%d\n",test.rpm,(test.temp/1000),test.level);
+    fclose(diff);
 
     fclose(log);
 
