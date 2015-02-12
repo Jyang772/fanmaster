@@ -3181,4 +3181,41 @@ Temperature: 48C, Checked at 00:18:46
 
 00:18:46
 Temperature is 48, safe is 58
-Turning fans to auto!
+Turning fans to auto!Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 52C, Checked at 21:36:48
+
+21:36:48
+Temperature is 52, safe is 58
+Turning fans to auto!Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 50C, Checked at 17:24:33
+
+17:24:33
+Temperature is 50, safe is 58
+Turning fans to auto!Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 47C, Checked at 18:15:03
+
+18:15:03
+Temperature is 47, safe is 58
+Turning fans to auto!Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 50C, Checked at 01:25:36
+
+01:25:36
+Temperature is 50, safe is 58
+Turning fans to auto!Manual Control Level: 0
+Fans level - 1
+ThinkPad Fan Control .:: level - 1 ::.
+Manual Control Level: 0
+Fans level - 0
+ThinkPad Fan Control .:: level - 0 ::.

@@ -121,6 +121,7 @@ void Controller::fans(){
     test.level = 1;
 
     //fwrite(&test,sizeof(logger),1,diff);
+    //Weed out outliers
     if(test.rpm == 0)
         test.level = 0;
     else if(test.rpm > 0 && test.rpm < 1990)
@@ -138,6 +139,8 @@ void Controller::fans(){
     else
         test.level = 7;
 
+    //Weed out outliers
+    if(test.rpm != 0)
     fprintf(diff,"%d,%d,%d\n",test.rpm,(test.temp/1000),test.level);
     fclose(diff);
 
