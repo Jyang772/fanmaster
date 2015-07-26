@@ -72,8 +72,8 @@ void MainWindow::on_sleepBox_editingFinished()
 
 void MainWindow::updateLCD(){
 
-    //int temp = fanManual->getTemperature()/1000;
-    int temp = fanMaster->getTemperature()/1000;
+    int temp = fanManual->getTemperature()/1000;
+    //int temp = fanMaster->getTemperature()/1000;
     if(temp < critTemp)
         ui->lcdNumber->setPalette(Qt::green);
     else
