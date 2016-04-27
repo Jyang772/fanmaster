@@ -3982,3 +3982,51 @@ Fans level - 32706
 ThinkPad Fan Control .:: level - 32706 ::.
 Fans level - 32706
 ThinkPad Fan Control .:: level - 32706 ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 51C, Checked at 18:07:12
+
+18:07:12
+Temperature is 51, safe is 58
+Turning fans to auto!Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 51C, Checked at 18:07:22
+
+18:07:22
+Temperature is 51, safe is 58
+Turning fans to auto!Manual Control Level: 0
+Fans level - full-speed
+ThinkPad Fan Control .:: level - full-speed ::.
+Manual Control Level: auto
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Temperature: 43C, Checked at 15:05:02
+
+15:05:02
+Temperature is 43, safe is 58
+Turning fans to auto!Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - 0
+ThinkPad Fan Control .:: level - 0 ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - 0
+ThinkPad Fan Control .:: level - 0 ::.
+Fans level - auto
+ThinkPad Fan Control .:: level - auto ::.
+Fans level - 0
+ThinkPad Fan Control .:: level - 0 ::.

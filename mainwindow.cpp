@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     checkTemp();
 
 }
-
+	//Destructor for ui object
 MainWindow::~MainWindow()
 {
     delete ui;

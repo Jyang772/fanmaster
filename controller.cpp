@@ -62,6 +62,7 @@ void Controller::fans(){
 
     }
 
+    //reads current CPU temperature
     fscanf(tempInput,"%d",&cpu_temp);
 
     cpu_temp /= 1000;
@@ -299,6 +300,10 @@ void Controller::consoleMode(){
                     stop = 0;
                     break;
                 }
+		tempInput = fopen("/sys/class/thermal/thermal_zone1/temp","r");
+                fscanf(tempInput,"%d",&temp);
+                temp /= 1000;
+                fclose(tempInput);
                 printf("Temperature: %d Fan: %d\n",temp,getRPM());
                 sleep(1);
             }
